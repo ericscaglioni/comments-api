@@ -1,7 +1,7 @@
 const { IValidation } = require('../../protocols')
 const { AddCommentController } = require('./add-comment-controller')
 const { MissingParamError } = require('../../errors')
-const { badRequest, serverError } = require('../../helpers/http/http-helper')
+const { badRequest, serverError, ok } = require('../../helpers/http/http-helper')
 const { IAddComment } = require('../../../domain/usecases/add-comment')
 
 const mockHttpRequest = () => ({
@@ -9,7 +9,7 @@ const mockHttpRequest = () => ({
         id: 'any_post_id'
     },
     body: {
-        content: 'any_title'
+        content: 'any_content'
     }
 })
 
@@ -84,5 +84,16 @@ describe('Add Comment Controller suite tests', () => {
         })
         const httpResponse = await sut.handle(mockHttpRequest())
         expect(httpResponse).toEqual(serverError(new Error()))
+    })
+
+    it('Should return 200 on success', async () => {
+      const { sut } = makeSut()
+      const httpResponse = await sut.handle(mockHttpRequest())
+      expect(httpResponse).toEqual(ok({
+          ['any_post_id']: [{
+              id: 'any_comment_id',
+              content: 'any_content'
+          }]
+      }))
     })
 })

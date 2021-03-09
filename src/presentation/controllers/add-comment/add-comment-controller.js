@@ -1,4 +1,4 @@
-const { badRequest, serverError } = require('../../helpers/http/http-helper')
+const { badRequest, serverError, ok } = require('../../helpers/http/http-helper')
 const { IController } = require('../../protocols')
 
 class AddCommentController extends IController {
@@ -16,10 +16,11 @@ class AddCommentController extends IController {
             }
             const { content } = httpRequest.body
             const { id: postId } = httpRequest.params
-            this.iAddComment.add({
+            const comments = await this.iAddComment.add({
                 postId,
                 content
             })
+            return ok(comments)
         } catch (error) {
             return serverError(error)
         }
