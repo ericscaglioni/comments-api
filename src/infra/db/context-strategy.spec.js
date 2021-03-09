@@ -45,25 +45,25 @@ describe('Context Strategy suite tests', () => {
             expect(addSpy).toHaveBeenCalledWith(commentData)
         })
 
-        // it('Should throw if IComment throws', async () => {
-        //     const { sut, iPostStub } = makeSut()
-        //     jest.spyOn(iPostStub, 'add').mockImplementationOnce(() => {
-        //         throw new Error()
-        //     })
-        //     const promise = sut.add(mockCommentData())
-        //     await expect(promise).rejects.toThrow()
-        // })
+        it('Should throw if IComment throws', async () => {
+            const { sut, iCommentStub } = makeSut()
+            jest.spyOn(iCommentStub, 'add').mockImplementationOnce(() => {
+                throw new Error()
+            })
+            const promise = sut.add(mockCommentData())
+            await expect(promise).rejects.toThrow()
+        })
 
-        // it('Should return on success', async () => {
-        //     const { sut} = makeSut()
-        //     const postModel = await sut.add(mockCommentData())
-        //     expect(postModel).toEqual({
-        //         ['any_id']: {
-        //             title: 'any_title',
-        //             text: 'any_text'
-        //         }
-        //     })
-        // })
+        it('Should return on success', async () => {
+            const { sut } = makeSut()
+            const comments = await sut.add(mockCommentData())
+            expect(comments).toEqual({
+                "any_post_id": [{
+                    id: 'comment_id',
+                    content: 'any_content'
+                }]
+            })
+        })
     })
 
     // describe('connect()', () => {
