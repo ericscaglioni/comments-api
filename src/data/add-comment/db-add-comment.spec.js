@@ -31,12 +31,21 @@ const makeSut = () => {
 
 describe('Db Add Comment suite tests', () => {
     describe('add()', () => {
-        it('Should call IComment with correct data', async () => {
+        it('Should call IAddCommentRepositoryStub with correct data', async () => {
             const { sut, iAddCommentRepositoryStub } = makeSut()
             const addSpy = jest.spyOn(iAddCommentRepositoryStub, 'add')
             const commentData = mockCommentData()
             await sut.add(commentData)
             expect(addSpy).toHaveBeenCalledWith(commentData)
+        })
+
+        it('Should throw if IAddCommentRepositoryStub throws', async () => {
+            const { sut, iAddCommentRepositoryStub } = makeSut()
+            jest.spyOn(iAddCommentRepositoryStub, 'add').mockImplementationOnce(() => {
+                throw new Error('test')
+            })
+            const promise = sut.add(mockCommentData())
+            await expect(promise).rejects.toThrow()
         })
     })
 })
