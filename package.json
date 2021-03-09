@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "NODE_ENV=test jest --passWithNoTests --runInBand",
+    "test:unit": "npm t -- -c jest-unit.config.js",
+    "test:integration": "npm t -- -c jest-integration.config.js",
+    "test:ci": "npm t -- --coverage"
   },
   "keywords": [],
   "author": "",
