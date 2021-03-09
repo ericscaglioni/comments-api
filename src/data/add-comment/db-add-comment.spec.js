@@ -47,5 +47,16 @@ describe('Db Add Comment suite tests', () => {
             const promise = sut.add(mockCommentData())
             await expect(promise).rejects.toThrow()
         })
+
+        it('Should return a post comments on success', async () => {
+            const { sut } = makeSut()
+            const postComments = await sut.add(mockCommentData())
+            expect(postComments).toEqual({
+                ['any_post_id']: [{
+                    id: 'any_comment_id',
+                    content: 'any_content'
+                }]
+            })
+        })
     })
 })
