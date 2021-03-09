@@ -5,7 +5,7 @@ const envConfig = {
         port: parseInt(process.env.API_PORT) || 8002
     },
     dbStrategyURL: {
-        file: process.env.FILEDB_URL || 'database/tests/posts.json'
+        file: process.env.FILEDB_URL || 'database/tests/comments.json'
     }
 }
 
