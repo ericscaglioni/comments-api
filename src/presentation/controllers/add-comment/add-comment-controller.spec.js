@@ -1,7 +1,7 @@
 const { IValidation } = require('../../protocols')
 const { AddCommentController } = require('./add-comment-controller')
 const { MissingParamError } = require('../../errors')
-const { badRequest } = require('../../helpers/http/http-helper')
+const { badRequest, serverError } = require('../../helpers/http/http-helper')
 const { IAddComment } = require('../../../domain/usecases/add-comment')
 
 const mockHttpRequest = () => ({
@@ -75,5 +75,14 @@ describe('Add Comment Controller suite tests', () => {
             postId: httpRequest.params.id,
             content: httpRequest.body.content
         })
+    })
+
+    it('Should return 500 if IAddComment throws', async () => {
+        const { sut, iAddCommmentStub } = makeSut()
+        jest.spyOn(iAddCommmentStub, 'add').mockImplementationOnce(() => {
+            throw new Error()
+        })
+        const httpResponse = await sut.handle(mockHttpRequest())
+        expect(httpResponse).toEqual(serverError(new Error()))
     })
 })
