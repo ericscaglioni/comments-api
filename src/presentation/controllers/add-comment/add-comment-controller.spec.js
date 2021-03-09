@@ -1,5 +1,7 @@
 const { IValidation } = require('../../protocols')
 const { AddCommentController } = require('./add-comment-controller')
+const { MissingParamError } = require('../../errors')
+const { badRequest } = require('../../helpers/http/http-helper')
 
 const mockHttpRequest = () => ({
     params: {
@@ -37,5 +39,12 @@ describe('Add Comment Controller suite tests', () => {
         const httpRequest = mockHttpRequest()
         await sut.handle(httpRequest)
         expect(validateSpy).toHaveBeenCalledWith(httpRequest.body)
+    })
+
+    it('Should return 400 if IValidation returns an error', async () => {
+        const { sut, iValidationStub } = makeSut()
+        jest.spyOn(iValidationStub, 'validate').mockReturnValueOnce(new MissingParamError('any_field'))
+        const httpResponse = await sut.handle(mockHttpRequest())
+        expect(httpResponse).toEqual(badRequest(new MissingParamError('any_field')))
     })
 })

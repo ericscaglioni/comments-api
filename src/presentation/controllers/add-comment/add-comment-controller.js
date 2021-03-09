@@ -1,3 +1,4 @@
+const { badRequest } = require('../../helpers/http/http-helper')
 const { IController } = require('../../protocols')
 
 class AddCommentController extends IController {
@@ -7,7 +8,10 @@ class AddCommentController extends IController {
     }
 
     async handle (httpRequest) {
-        this.iValidation.validate(httpRequest.body)
+        const error = this.iValidation.validate(httpRequest.body)
+        if (error) {
+            return badRequest(error)
+        }
     }
 }
 
