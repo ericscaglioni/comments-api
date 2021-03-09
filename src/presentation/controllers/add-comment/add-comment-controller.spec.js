@@ -2,6 +2,7 @@ const { IValidation } = require('../../protocols')
 const { AddCommentController } = require('./add-comment-controller')
 const { MissingParamError } = require('../../errors')
 const { badRequest } = require('../../helpers/http/http-helper')
+const { IAddComment } = require('../../../domain/usecases/add-comment')
 
 const mockHttpRequest = () => ({
     params: {
@@ -21,14 +22,31 @@ const mockValidation = () => {
     return new IValidationStub()
 }
 
+const mockIAddComment = () => {
+    class IAddCommentStub extends IAddComment {
+        async add ({ postId, content }) {
+            return {
+                [postId]: [{
+                    id: 'any_comment_id',
+                    content
+                }]
+            }
+        }
+    }
+    return new IAddCommentStub()
+}
+
 const makeSut = () => {
     const iValidationStub = mockValidation()
+    const iAddCommmentStub = mockIAddComment()
     const sut = new AddCommentController(
-        iValidationStub
+        iValidationStub,
+        iAddCommmentStub
     )
     return {
         sut,
-        iValidationStub
+        iValidationStub,
+        iAddCommmentStub
     }
 }
 
@@ -46,5 +64,16 @@ describe('Add Comment Controller suite tests', () => {
         jest.spyOn(iValidationStub, 'validate').mockReturnValueOnce(new MissingParamError('any_field'))
         const httpResponse = await sut.handle(mockHttpRequest())
         expect(httpResponse).toEqual(badRequest(new MissingParamError('any_field')))
+    })
+
+    it('Should call IAddComment with correct data', async () => {
+        const { sut, iAddCommmentStub } = makeSut()
+        const addSpy = jest.spyOn(iAddCommmentStub, 'add')
+        const httpRequest = mockHttpRequest()
+        await sut.handle(httpRequest)
+        expect(addSpy).toHaveBeenCalledWith({
+            postId: httpRequest.params.id,
+            content: httpRequest.body.content
+        })
     })
 })
