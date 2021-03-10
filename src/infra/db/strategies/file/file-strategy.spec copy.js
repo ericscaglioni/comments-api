@@ -1,4 +1,4 @@
-const { FileRepository } = require('./file-repository')
+const { FileRepository } = require('./file-strategy')
 const { writeFile, readFile } = require('fs/promises')
 const { envConfig } = require('../../../main/config/environment')
 
@@ -8,7 +8,7 @@ const makeSut = () => new FileRepository()
 
 let commentsByPostId = {}
 
-describe('Comment File Repository suite tests', () => {
+describe('File Repository suite tests', () => {
     beforeEach(async () => {
         await writeFile(filePath, '{}')
         commentsByPostId = JSON.parse(await readFile(filePath))
