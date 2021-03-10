@@ -1,3 +1,4 @@
+const { InvalidParamError } = require('../../errors')
 const { badRequest, serverError, ok } = require('../../helpers/http/http-helper')
 const { IController } = require('../../protocols')
 
@@ -14,8 +15,14 @@ class AddCommentController extends IController {
             if (error) {
                 return badRequest(error)
             }
+            const { id } = httpRequest.params
+            const postId = parseInt(id)
+            if (!postId) {
+                return badRequest(new InvalidParamError('id'))
+            }
+
             const { content } = httpRequest.body
-            const { id: postId } = httpRequest.params
+            
             const comments = await this.iAddComment.add({
                 postId,
                 content

@@ -1,12 +1,12 @@
 const { IValidation } = require('../../protocols')
 const { AddCommentController } = require('./add-comment-controller')
-const { MissingParamError } = require('../../errors')
+const { MissingParamError, InvalidParamError } = require('../../errors')
 const { badRequest, serverError, ok } = require('../../helpers/http/http-helper')
 const { IAddComment } = require('../../../domain/usecases/add-comment')
 
 const mockHttpRequest = () => ({
     params: {
-        id: 'any_post_id'
+        id: '1'
     },
     body: {
         content: 'any_content'
@@ -66,13 +66,21 @@ describe('Add Comment Controller suite tests', () => {
         expect(httpResponse).toEqual(badRequest(new MissingParamError('any_field')))
     })
 
+    it('Should return 400 if params.id is not a number', async () => {
+        const { sut } = makeSut()
+        const httpRequest = mockHttpRequest()
+        httpRequest.params.id = 'invalid_number'
+        const httpResponse = await sut.handle(httpRequest)
+        expect(httpResponse).toEqual(badRequest(new InvalidParamError('id')))
+    })
+
     it('Should call IAddComment with correct data', async () => {
         const { sut, iAddCommmentStub } = makeSut()
         const addSpy = jest.spyOn(iAddCommmentStub, 'add')
         const httpRequest = mockHttpRequest()
         await sut.handle(httpRequest)
         expect(addSpy).toHaveBeenCalledWith({
-            postId: httpRequest.params.id,
+            postId: parseInt(httpRequest.params.id),
             content: httpRequest.body.content
         })
     })
@@ -90,7 +98,7 @@ describe('Add Comment Controller suite tests', () => {
       const { sut } = makeSut()
       const httpResponse = await sut.handle(mockHttpRequest())
       expect(httpResponse).toEqual(ok({
-          ['any_post_id']: [{
+          ['1']: [{
               id: 'any_comment_id',
               content: 'any_content'
           }]
