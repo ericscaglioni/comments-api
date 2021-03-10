@@ -74,6 +74,22 @@ describe('Add Comment Controller suite tests', () => {
         expect(httpResponse).toEqual(badRequest(new InvalidParamError('id')))
     })
 
+    it('Should return 400 if params.id is a negative number', async () => {
+        const { sut } = makeSut()
+        const httpRequest = mockHttpRequest()
+        httpRequest.params.id = '-2'
+        const httpResponse = await sut.handle(httpRequest)
+        expect(httpResponse).toEqual(badRequest(new InvalidParamError('id')))
+    })
+
+    it('Should return 400 if params.id is equals 0', async () => {
+        const { sut } = makeSut()
+        const httpRequest = mockHttpRequest()
+        httpRequest.params.id = '0'
+        const httpResponse = await sut.handle(httpRequest)
+        expect(httpResponse).toEqual(badRequest(new InvalidParamError('id')))
+    })
+
     it('Should call IAddComment with correct data', async () => {
         const { sut, iAddCommmentStub } = makeSut()
         const addSpy = jest.spyOn(iAddCommmentStub, 'add')

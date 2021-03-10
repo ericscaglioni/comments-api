@@ -17,7 +17,7 @@ class AddCommentController extends IController {
             }
             const { id } = httpRequest.params
             const postId = parseInt(id)
-            if (!postId) {
+            if (!postId || postId < 0) {
                 return badRequest(new InvalidParamError('id'))
             }
 
