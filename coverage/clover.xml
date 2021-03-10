@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1615391520692" clover="3.2.0">
-  <project timestamp="1615391520692" name="All files">
+<coverage generated="1615397491337" clover="3.2.0">
+  <project timestamp="1615397491337" name="All files">
     <metrics statements="91" coveredstatements="91" conditionals="10" coveredconditionals="10" methods="27" coveredmethods="27" elements="128" coveredelements="128" complexity="0" loc="91" ncloc="91" packages="10" files="13" classes="13"/>
     <package name="data.usecases.add-comment">
       <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="2"/>
@@ -43,15 +43,15 @@
     </package>
     <package name="infra.db.filedb.log">
       <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
-      <file name="logs-repository.js" path="/home/scaglioni/repos/personal/blog/comments-api/src/infra/db/filedb/log/logs-repository.js">
+      <file name="log-error-repository.js" path="/home/scaglioni/repos/personal/blog/comments-api/src/infra/db/filedb/log/log-error-repository.js">
         <metrics statements="7" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
-        <line num="1" count="1" type="stmt"/>
-        <line num="5" count="2" type="stmt"/>
+        <line num="1" count="4" type="stmt"/>
+        <line num="5" count="5" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
         <line num="13" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
         <line num="18" count="1" type="stmt"/>
-        <line num="22" count="1" type="stmt"/>
+        <line num="22" count="4" type="stmt"/>
       </file>
     </package>
     <package name="infra.db.strategies">
@@ -59,8 +59,8 @@
       <file name="context-strategy.js" path="/home/scaglioni/repos/personal/blog/comments-api/src/infra/db/strategies/context-strategy.js">
         <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
         <line num="1" count="4" type="stmt"/>
-        <line num="5" count="8" type="stmt"/>
-        <line num="6" count="8" type="stmt"/>
+        <line num="5" count="11" type="stmt"/>
+        <line num="6" count="11" type="stmt"/>
         <line num="10" count="4" type="stmt"/>
         <line num="14" count="2" type="stmt"/>
         <line num="18" count="4" type="stmt"/>
@@ -73,8 +73,8 @@
         <line num="1" count="6" type="stmt"/>
         <line num="2" count="6" type="stmt"/>
         <line num="3" count="6" type="stmt"/>
-        <line num="7" count="11" type="stmt"/>
-        <line num="8" count="11" type="stmt"/>
+        <line num="7" count="14" type="stmt"/>
+        <line num="8" count="14" type="stmt"/>
         <line num="12" count="4" type="stmt"/>
         <line num="15" count="4" type="stmt"/>
         <line num="19" count="4" type="stmt"/>
@@ -112,40 +112,40 @@
       <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
       <file name="index.js" path="/home/scaglioni/repos/personal/blog/comments-api/src/presentation/errors/index.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="5" type="stmt"/>
-        <line num="2" count="5" type="stmt"/>
-        <line num="3" count="5" type="stmt"/>
-        <line num="5" count="5" type="stmt"/>
+        <line num="1" count="6" type="stmt"/>
+        <line num="2" count="6" type="stmt"/>
+        <line num="3" count="6" type="stmt"/>
+        <line num="5" count="6" type="stmt"/>
       </file>
       <file name="invalid-param-error.js" path="/home/scaglioni/repos/personal/blog/comments-api/src/presentation/errors/invalid-param-error.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="3" count="7" type="stmt"/>
         <line num="4" count="7" type="stmt"/>
-        <line num="8" count="5" type="stmt"/>
+        <line num="8" count="6" type="stmt"/>
       </file>
       <file name="missing-param-error.js" path="/home/scaglioni/repos/personal/blog/comments-api/src/presentation/errors/missing-param-error.js">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
         <line num="3" count="4" type="stmt"/>
         <line num="4" count="4" type="stmt"/>
-        <line num="8" count="5" type="stmt"/>
+        <line num="8" count="6" type="stmt"/>
       </file>
       <file name="server-error.js" path="/home/scaglioni/repos/personal/blog/comments-api/src/presentation/errors/server-error.js">
         <metrics statements="4" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
-        <line num="3" count="2" type="stmt"/>
-        <line num="4" count="2" type="stmt"/>
-        <line num="5" count="2" type="stmt"/>
-        <line num="9" count="5" type="stmt"/>
+        <line num="3" count="3" type="stmt"/>
+        <line num="4" count="3" type="stmt"/>
+        <line num="5" count="3" type="stmt"/>
+        <line num="9" count="6" type="stmt"/>
       </file>
     </package>
     <package name="presentation.helpers.http">
       <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
       <file name="http-helper.js" path="/home/scaglioni/repos/personal/blog/comments-api/src/presentation/helpers/http/http-helper.js">
         <metrics statements="5" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="3"/>
-        <line num="1" count="4" type="stmt"/>
+        <line num="1" count="5" type="stmt"/>
         <line num="3" count="9" type="stmt"/>
-        <line num="8" count="4" type="stmt"/>
-        <line num="13" count="5" type="stmt"/>
-        <line num="18" count="4" type="stmt"/>
+        <line num="8" count="5" type="stmt"/>
+        <line num="13" count="8" type="stmt"/>
+        <line num="18" count="5" type="stmt"/>
       </file>
     </package>
     <package name="validation.validators">
