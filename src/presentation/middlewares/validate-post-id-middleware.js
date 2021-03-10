@@ -13,7 +13,10 @@ class ValidatePostIdMiddleware extends Middleware {
         if (!postId) {
             return badRequest(new InvalidParamError('id'))
         }
-        this.iLoadPostCommentsByPostId.loadByPostId(postId)    
+        const comments = await this.iLoadPostCommentsByPostId.loadByPostId(postId)    
+        if (!comments.length) {
+            return badRequest(new InvalidParamError('id'))
+        }
     }
 }
 

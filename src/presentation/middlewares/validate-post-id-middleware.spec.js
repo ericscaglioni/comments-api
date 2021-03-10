@@ -61,4 +61,11 @@ describe('Validate Post Id Middleware suite tests', () => {
         const httpResponse = await sut.handle(httpRequest)
         expect(httpResponse).toEqual(badRequest(new InvalidParamError('id')))
     })
+
+    it('Should return 400 if ILoadPostCommentsByPostId returns an empty array', async () => {
+        const { sut, iLoadPostCommentsByPostId } = makeSut()
+        jest.spyOn(iLoadPostCommentsByPostId, 'loadByPostId').mockResolvedValueOnce([])
+        const httpResponse = await sut.handle(mockHttpRequest())
+        expect(httpResponse).toEqual(badRequest(new InvalidParamError('id')))
+    })
 })
