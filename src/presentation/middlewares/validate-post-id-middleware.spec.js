@@ -1,5 +1,5 @@
 const { ILoadPostCommentsByPostId } = require('../../data/protocols/load-post-comments-by-post-id')
-const { badRequest } = require('../helpers/http/http-helper')
+const { badRequest, serverError } = require('../helpers/http/http-helper')
 const { ValidatePostIdMiddleware } = require('./validate-post-id-middleware')
 const { InvalidParamError } = require('../errors')
 
@@ -67,5 +67,14 @@ describe('Validate Post Id Middleware suite tests', () => {
         jest.spyOn(iLoadPostCommentsByPostId, 'loadByPostId').mockResolvedValueOnce([])
         const httpResponse = await sut.handle(mockHttpRequest())
         expect(httpResponse).toEqual(badRequest(new InvalidParamError('id')))
+    })
+
+    it('Should return 500 if ILoadPostCommentsByPostId throws', async () => {
+        const { sut, iLoadPostCommentsByPostId } = makeSut()
+        jest.spyOn(iLoadPostCommentsByPostId, 'loadByPostId').mockImplementationOnce(() => {
+            throw new Error()
+        })
+        const httpResponse = await sut.handle(mockHttpRequest())
+        expect(httpResponse).toEqual(serverError(new Error()))
     })
 })
