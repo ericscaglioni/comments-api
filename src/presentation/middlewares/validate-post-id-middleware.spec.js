@@ -1,5 +1,5 @@
 const { ILoadPostCommentsByPostId } = require('../../data/protocols/load-post-comments-by-post-id')
-const { badRequest, serverError } = require('../helpers/http/http-helper')
+const { badRequest, serverError, ok } = require('../helpers/http/http-helper')
 const { ValidatePostIdMiddleware } = require('./validate-post-id-middleware')
 const { InvalidParamError } = require('../errors')
 
@@ -76,5 +76,11 @@ describe('Validate Post Id Middleware suite tests', () => {
         })
         const httpResponse = await sut.handle(mockHttpRequest())
         expect(httpResponse).toEqual(serverError(new Error()))
+    })
+
+    it('Should return 200 if ILoadPostCommentsByPostId retuns post comments', async () => {
+        const { sut } = makeSut()
+        const httpResponse = await sut.handle(mockHttpRequest())
+        expect(httpResponse).toEqual(ok({}))
     })
 })

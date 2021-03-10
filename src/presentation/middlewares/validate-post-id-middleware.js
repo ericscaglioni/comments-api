@@ -1,5 +1,5 @@
 const { InvalidParamError } = require('../errors')
-const { badRequest, serverError } = require('../helpers/http/http-helper')
+const { badRequest, serverError, ok } = require('../helpers/http/http-helper')
 const { Middleware } = require('../protocols/middleware')
 
 class ValidatePostIdMiddleware extends Middleware {
@@ -18,6 +18,7 @@ class ValidatePostIdMiddleware extends Middleware {
             if (!comments.length) {
                 return badRequest(new InvalidParamError('id'))
             }
+            return ok({})
         } catch (error) {
             return serverError(error)
         }
