@@ -1,5 +1,7 @@
 const { ILoadPostCommentsByPostId } = require('../../data/protocols/load-post-comments-by-post-id')
+const { badRequest } = require('../helpers/http/http-helper')
 const { ValidatePostIdMiddleware } = require('./validate-post-id-middleware')
+const { InvalidParamError } = require('../errors')
 
 const mockHttpRequest = () => ({
     params: {
@@ -41,5 +43,22 @@ describe('Validate Post Id Middleware suite tests', () => {
         const httpRequest = mockHttpRequest()
         await sut.handle(httpRequest)
         expect(loadByPostIdSpy).toHaveBeenCalledWith(parseInt(httpRequest.params.id))
-    })    
+    })
+
+    it('Should not call ILoadPostCommentsByPostId if post it is not a number', async () => {
+        const { sut, iLoadPostCommentsByPostId } = makeSut()
+        const loadByPostIdSpy = jest.spyOn(iLoadPostCommentsByPostId, 'loadByPostId')
+        const httpRequest = mockHttpRequest()
+        httpRequest.params.id = 'any_string'
+        await sut.handle(httpRequest)
+        expect(loadByPostIdSpy).not.toHaveBeenCalled()
+    })
+
+    it('Should return 400 post id is not a number', async () => {
+        const { sut } = makeSut()
+        const httpRequest = mockHttpRequest()
+        httpRequest.params.id = 'any_string'
+        const httpResponse = await sut.handle(httpRequest)
+        expect(httpResponse).toEqual(badRequest(new InvalidParamError('id')))
+    })
 })

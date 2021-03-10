@@ -1,3 +1,5 @@
+const { InvalidParamError } = require('../errors')
+const { badRequest } = require('../helpers/http/http-helper')
 const { Middleware } = require('../protocols/middleware')
 
 class ValidatePostIdMiddleware extends Middleware {
@@ -8,6 +10,9 @@ class ValidatePostIdMiddleware extends Middleware {
 
     async handle (httpRequest) {
         const postId = parseInt(httpRequest.params.id)
+        if (!postId) {
+            return badRequest(new InvalidParamError('id'))
+        }
         this.iLoadPostCommentsByPostId.loadByPostId(postId)    
     }
 }
