@@ -1,7 +1,7 @@
 const { DbAddComment } = require('../../../../data/usecases/add-comment/db-add-comment')
-const { makeDbStrategy } = require('../../db-strategy/db-strategy-factory')
+const { makeFileCommentsRepository } = require('../../repositories/filedb/comments-repository-factory')
 
-const makeDbAddComment = () => new DbAddComment(makeDbStrategy())
+const makeDbAddComment = () => new DbAddComment(makeFileCommentsRepository())
 
 module.exports = {
     makeDbAddComment

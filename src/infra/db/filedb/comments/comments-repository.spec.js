@@ -1,14 +1,14 @@
-const { FileRepository } = require('./file-strategy')
+const { CommentsRepository } = require('./comments-repository')
 const { writeFile, readFile } = require('fs/promises')
-const { envConfig } = require('../../../main/config/environment')
+const { envConfig } = require('../../../../main/config/environment')
 
 const filePath = `${process.cwd()}/${envConfig.dbStrategyURL.file}`
 
-const makeSut = () => new FileRepository()
+const makeSut = () => new CommentsRepository(filePath)
 
 let commentsByPostId = {}
 
-describe('File Repository suite tests', () => {
+describe('Comments Repository suite tests', () => {
     beforeEach(async () => {
         await writeFile(filePath, '{}')
         commentsByPostId = JSON.parse(await readFile(filePath))
@@ -29,6 +29,14 @@ describe('File Repository suite tests', () => {
             expect(commentsByPostId).toBeTruthy()
             expect(commentsByPostId).toHaveProperty('any_post_id')
             expect(commentsByPostId['any_post_id']).toEqual(comments)
+        })
+    })
+
+    describe('connect()', () => {
+        it('Should connect', async () => {
+            const sut = makeSut()
+            const promise = sut.connect()
+            await expect(promise).resolves.toBe()
         })
     })
 })

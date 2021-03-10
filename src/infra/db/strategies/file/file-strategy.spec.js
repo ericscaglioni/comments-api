@@ -1,6 +1,7 @@
 const { FileStrategy } = require('./file-strategy')
 const { join } = require('path')
 const { readFile, writeFile } = require('fs/promises')
+const { NotImplementedException } = require('../../../../utils/errors')
 
 const filePath = join(__dirname, './tests/file.json')
 
@@ -41,6 +42,22 @@ describe('File Strategy suite tests', () => {
                await readFile(filePath)
             )
             expect(Object.keys(fileContent)).toHaveLength(1)
+       })
+   })
+
+   describe('add()', () => {
+       it('Should return a NotImplementedException', async () => {
+           const sut = makeSut()
+           const error = await sut.add({})
+           expect(error).toEqual(new NotImplementedException())
+       })
+   })
+
+   describe('connect()', () => {
+       it('Should return a NotImplementedException', async () => {
+           const sut = makeSut()
+           const error = await sut.connect({})
+           expect(error).toEqual(new NotImplementedException())
        })
    })
 })

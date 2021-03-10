@@ -1,5 +1,5 @@
-const { IComment } = require('../../protocols/comment')
 const { readFile, writeFile } = require('fs/promises')
+const { IComment } = require('../../protocols/comment')
 const { NotImplementedException } = require('../../../../utils/errors')
 
 class FileStrategy extends IComment {
@@ -24,21 +24,12 @@ class FileStrategy extends IComment {
     }
 
     async add ({ postId, content }) {
-        return NotImplementedException()
+        return new NotImplementedException()
     }
 
-    // async add ({ postId, content }) {
-    //     const commentsByPostId = await this._readFile()
-    //     const comment = new CommentModel({
-    //         id: uuidv4(),
-    //         content
-    //     })
-    //     const post = commentsByPostId[postId] || []
-    //     post.push(comment)
-    //     commentsByPostId[postId] = post
-    //     await this._writeFile(commentsByPostId)
-    //     return post
-    // }
+    async connect () {
+        return new NotImplementedException()
+    }
 }
 
 module.exports = {

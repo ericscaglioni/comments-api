@@ -1,0 +1,14 @@
+const { CommentsRepository } = require('../../../../infra/db/filedb/comments/comments-repository')
+const { ContextStrategy } = require('../../../../infra/db/strategies/context-strategy')
+const { envConfig } = require('../../../config/environment')
+
+const makeFileCommentsRepository = () => {
+    const commentsRepository = new CommentsRepository(
+        envConfig.dbStrategyURL.file
+    )
+    return new ContextStrategy(commentsRepository)
+}
+
+module.exports = {
+    makeFileCommentsRepository
+}

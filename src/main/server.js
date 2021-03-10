@@ -1,8 +1,8 @@
 require('dotenv').config()
-const { makeDbStrategy } = require('./factories/db-strategy/db-strategy-factory')
+const { makeFileCommentsRepository } = require('./factories/repositories/filedb/comments-repository-factory')
 const { envConfig } = require('./config/environment')
 
-const contextStrategy = makeDbStrategy()
+const contextStrategy = makeFileCommentsRepository()
 
 contextStrategy.connect()
     .then(async () => {
