@@ -1,4 +1,4 @@
-const { IAddComment } = require('../../domain/usecases/add-comment')
+const { IAddComment } = require('../../../domain/usecases/add-comment')
 
 class DbAddComment extends IAddComment {
     constructor(iAddCommentRepository) {

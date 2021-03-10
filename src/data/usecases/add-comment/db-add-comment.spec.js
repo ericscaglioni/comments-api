@@ -1,4 +1,4 @@
-const { IComment } = require('../../infra/db/protocols/comment')
+const { IComment } = require('../../../infra/db/protocols/comment')
 const { DbAddComment } = require('./db-add-comment')
 
 const mockCommentData = () => ({
