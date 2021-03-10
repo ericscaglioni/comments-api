@@ -1,6 +1,7 @@
 const adaptRoute = (controller) => {
     return async (req, res) => {
         const httpRequest = {
+            params: req.params,
             body: req.body
         }
         const httpResponse = await controller.handle(httpRequest)

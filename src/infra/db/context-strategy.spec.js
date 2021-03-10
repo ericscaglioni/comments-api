@@ -66,21 +66,21 @@ describe('Context Strategy suite tests', () => {
         })
     })
 
-    // describe('connect()', () => {
-    //     it('Should call IComment', async () => {
-    //         const { sut, iPostStub } = makeSut()
-    //         const connectSpy = jest.spyOn(iPostStub, 'connect')
-    //         await sut.connect()
-    //         expect(connectSpy).toHaveBeenCalled()
-    //     })
+    describe('connect()', () => {
+        it('Should call IComment', async () => {
+            const { sut, iCommentStub } = makeSut()
+            const connectSpy = jest.spyOn(iCommentStub, 'connect')
+            await sut.connect()
+            expect(connectSpy).toHaveBeenCalled()
+        })
 
-    //     it('Should throw if IComment throws', async () => {
-    //         const { sut, iPostStub } = makeSut()
-    //         jest.spyOn(iPostStub, 'connect').mockImplementationOnce(() => {
-    //             throw new Error()
-    //         })
-    //         const promise = sut.connect()
-    //         await expect(promise).rejects.toThrow()
-    //     })
-    // })
+        it('Should throw if IComment throws', async () => {
+            const { sut, iCommentStub } = makeSut()
+            jest.spyOn(iCommentStub, 'connect').mockImplementationOnce(() => {
+                throw new Error()
+            })
+            const promise = sut.connect()
+            await expect(promise).rejects.toThrow()
+        })
+    })
 })

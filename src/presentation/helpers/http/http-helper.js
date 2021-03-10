@@ -1,4 +1,4 @@
-const { ServerError, NotFoundError } = require('../../errors')
+const { ServerError } = require('../../errors')
 
 const badRequest = (error) => ({
     statusCode: 400,
@@ -15,20 +15,8 @@ const created = (data) => ({
     body: data
 })
 
-const notFound = () => ({
-    statusCode: 404,
-    body: new NotFoundError()
-})
-
-const ok = (data) => ({
-    statusCode: 200,
-    body: data
-})
-
 module.exports = {
     badRequest,
     serverError,
-    created,
-    notFound,
-    ok
+    created
 }

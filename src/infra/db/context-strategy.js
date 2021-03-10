@@ -10,10 +10,6 @@ class ContextStrategy extends IComment {
         return this._database.add(postModel)
     }
 
-    async loadAll () {
-        return this._database.loadAll()
-    }
-
     async connect () {
         return this._database.connect()
     }

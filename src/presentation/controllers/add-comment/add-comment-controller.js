@@ -1,5 +1,5 @@
 const { InvalidParamError } = require('../../errors')
-const { badRequest, serverError, ok } = require('../../helpers/http/http-helper')
+const { badRequest, serverError, ok, created } = require('../../helpers/http/http-helper')
 const { IController } = require('../../protocols')
 
 class AddCommentController extends IController {
@@ -27,7 +27,7 @@ class AddCommentController extends IController {
                 postId,
                 content
             })
-            return ok(comments)
+            return created(comments)
         } catch (error) {
             return serverError(error)
         }
