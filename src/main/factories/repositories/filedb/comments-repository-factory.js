@@ -4,7 +4,7 @@ const { envConfig } = require('../../../config/environment')
 
 const makeFileCommentsRepository = () => {
     const commentsRepository = new CommentsRepository(
-        envConfig.dbStrategyURL.file
+        envConfig.dbStrategyURL.file.comments
     )
     return new ContextStrategy(commentsRepository)
 }

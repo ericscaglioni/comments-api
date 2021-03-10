@@ -5,7 +5,6 @@ const { NotImplementedException } = require('../../../../utils/errors')
 class FileStrategy extends IComment {
     constructor (filePath) {
         super()
-        // this.filePath = `${process.cwd()}/${envConfig.dbStrategyURL.file}`
         this.filePath = filePath
     }
 
