@@ -52,4 +52,13 @@ describe('Log Controller Decorator suite tests', () => {
         await sut.handle(httpRequest)
         expect(handleSpy).toHaveBeenCalledWith(httpRequest)
     })
+
+    it('Should return the same result of the controller', async () => {
+        const { sut } = makeSut()
+        const httpResponse = await sut.handle(mockHttpRequest())
+        expect(httpResponse).toEqual(created([{
+            id: 'any_comment_id',
+            content: 'any_content'
+        }]))
+    })
 })

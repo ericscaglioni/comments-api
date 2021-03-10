@@ -8,7 +8,8 @@ class LogControllerDecorator extends IController {
     }
 
     async handle (httpRequest) {
-        this.iController.handle(httpRequest)
+        const httpResponse = await this.iController.handle(httpRequest)
+        return httpResponse
     }
 }
 
