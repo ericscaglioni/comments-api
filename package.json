@@ -7,7 +7,8 @@
     "test": "NODE_ENV=test jest --passWithNoTests --runInBand",
     "test:unit": "npm t -- -c jest-unit.config.js",
     "test:integration": "npm t -- -c jest-integration.config.js",
-    "test:ci": "npm t -- --coverage"
+    "test:ci": "npm t -- --coverage",
+    "start:dev": "NODE_ENV=dev nodemon src/main/server.js"
   },
   "keywords": [],
   "author": "",
