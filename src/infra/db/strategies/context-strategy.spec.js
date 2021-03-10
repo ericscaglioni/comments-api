@@ -1,4 +1,4 @@
-const { IComment } = require('./protocols/comment')
+const { IComment } = require('../protocols/comment')
 const { ContextStrategy } = require('./context-strategy')
 
 const mockIComment = () => {

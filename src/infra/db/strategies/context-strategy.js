@@ -1,4 +1,4 @@
-const { IComment } = require("./protocols/comment")
+const { IComment } = require("../protocols/comment")
 
 class ContextStrategy extends IComment {
     constructor(strategy) {
