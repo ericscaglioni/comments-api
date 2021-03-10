@@ -1,6 +1,6 @@
 const { IController } = require('../../presentation/protocols/controller')
 const { IComment } = require('../../infra/db/protocols/comment')
-const { created } = require('../../presentation/helpers/http/http-helper')
+const { created, serverError } = require('../../presentation/helpers/http/http-helper')
 const { LogControllerDecorator } = require('./log-controller-decorator')
 
 const mockHttpRequest = () => ({
@@ -8,6 +8,12 @@ const mockHttpRequest = () => ({
         content: 'any_content'
     }
 })
+
+const mockServerError = () => {
+    const fakeError = new Error()
+    fakeError.stack = 'any_error_stack'
+    return serverError(fakeError)
+}
 
 const mockController = () => {
     class ControllerStub extends IController {
@@ -60,5 +66,13 @@ describe('Log Controller Decorator suite tests', () => {
             id: 'any_comment_id',
             content: 'any_content'
         }]))
+    })
+
+    it('Should call LogErrorRepository with correct data when controller returns server error', async () => {
+        const { sut, controllerStub, logErrorRepositoryStub } = makeSut()
+        jest.spyOn(controllerStub, 'handle').mockResolvedValueOnce(mockServerError())
+        const addSpy = jest.spyOn(logErrorRepositoryStub, 'add')
+        await sut.handle(mockHttpRequest())
+        expect(addSpy).toHaveBeenCalledWith('any_error_stack')
     })
 })
