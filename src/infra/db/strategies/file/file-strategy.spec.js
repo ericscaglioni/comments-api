@@ -1,22 +1,46 @@
 const { FileStrategy } = require('./file-strategy')
 const { join } = require('path')
-const { writeFile } = require('fs/promises')
+const { readFile, writeFile } = require('fs/promises')
 
 const filePath = join(__dirname, './tests/file.json')
 
 const makeSut = () => new FileStrategy(filePath)
 
-let commentsByPostId = {}
+const mockFakeObj = () => ({
+    id: 1
+})
 
 describe('File Strategy suite tests', () => {
+    beforeEach(async () => {
+        await writeFile(filePath, '{}')
+    })
+
    describe('readFile()', () => {
        it('Should return file content', async () => {
-           const obj = { test: 1 }
+           const obj = mockFakeObj()
            await writeFile(filePath, JSON.stringify(obj))
 
            const sut = makeSut()
            const content = await sut.readFile()
            expect(content).toEqual(obj)
+       })
+   })
+
+   describe('writeFile()', () => {
+       it('Should write content to the file', async () => {
+            const sut = makeSut()
+
+            let fileContent = JSON.parse(
+                await readFile(filePath)
+            )
+            expect(Object.keys(fileContent)).toHaveLength(0)
+           
+            const obj = mockFakeObj()
+            await sut.writeFile(obj)
+            fileContent = JSON.parse(
+               await readFile(filePath)
+            )
+            expect(Object.keys(fileContent)).toHaveLength(1)
        })
    })
 })
