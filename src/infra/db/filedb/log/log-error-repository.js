@@ -1,6 +1,6 @@
 const { FileStrategy } = require('../../strategies/file/file-strategy')
 
-class LogsRepository extends FileStrategy {
+class LogErrorRepository extends FileStrategy {
     constructor(filePath) {
         super(filePath)
     }
@@ -20,5 +20,5 @@ class LogsRepository extends FileStrategy {
 }
 
 module.exports = {
-    LogsRepository
+    LogErrorRepository
 }
