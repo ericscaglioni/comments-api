@@ -8,6 +8,10 @@ class IComment {
     async connect () {
         return new NotImplementedException()
     }
+
+    async loadByPostId ({ postId }) {
+        return new NotImplementedException()
+    }
 }
 
 module.exports = {
