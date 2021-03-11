@@ -7,7 +7,9 @@ class DbLoadCommentsByPostId extends ILoadCommentsByPostId {
     }
 
     async loadByPostId ({ postId }) {
-        this.iLoadCommentsByPostIdRepository.loadByPostId({ postId })
+        return await this.iLoadCommentsByPostIdRepository.loadByPostId({
+            postId
+        })
     }
 }
 

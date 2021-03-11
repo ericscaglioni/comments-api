@@ -59,5 +59,12 @@ describe('Db Load Comments suite tests', () => {
             const promise = sut.loadByPostId(mockPostId())
             await expect(promise).rejects.toThrow()
         })
+
+        it('Should return post comments on success', async () => {
+            const { sut } = makeSut()
+            const comments = await sut.loadByPostId(mockPostId())
+            expect(Array.isArray(comments)).toBeTruthy()
+            expect(comments).toHaveLength(4)
+        })
     })
 })
