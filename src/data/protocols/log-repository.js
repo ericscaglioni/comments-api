@@ -1,11 +1,11 @@
 const { NotImplementedException } = require('../../utils/errors')
 
-class ILogErrorRepository {
-    async logError (stack) {
+class ILogRepository {
+    async logError (errorStack) {
         return NotImplementedException()
     }
 }
 
 module.exports = {
-    ILogErrorRepository
+    ILogRepository
 }
