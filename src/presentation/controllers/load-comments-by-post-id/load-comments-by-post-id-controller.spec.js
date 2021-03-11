@@ -67,4 +67,14 @@ describe('Load Comments By Post Id Controller suite tests', () => {
         const httpResponse = await sut.handle(httpRequest)
         expect(httpResponse).toEqual(badRequest(new InvalidParamError('id')))
     })
+
+    it('Should call ILoadCommentsByPostId with correct data', async () => {
+        const { sut, iLoadCommmentsByPostIdStub } = makeSut()
+        const loadByPostIdSpy = jest.spyOn(iLoadCommmentsByPostIdStub, 'loadByPostId')
+        const httpRequest = mockHttpRequest()
+        await sut.handle(httpRequest)
+        expect(loadByPostIdSpy).toHaveBeenCalledWith({
+            postId: 1
+        })
+    })
 })

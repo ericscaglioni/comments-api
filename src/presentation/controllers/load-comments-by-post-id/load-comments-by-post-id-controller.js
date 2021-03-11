@@ -16,11 +16,8 @@ class LoadCommentsByPostIdController extends IController {
                 return badRequest(new InvalidParamError('id'))
             }
 
-            const { content } = httpRequest.body
-            
-            const comments = await this.iLoadCommentsByPostId.add({
-                postId,
-                content
+            const comments = await this.iLoadCommentsByPostId.loadByPostId({
+                postId
             })
             return created(comments)
         } catch (error) {
