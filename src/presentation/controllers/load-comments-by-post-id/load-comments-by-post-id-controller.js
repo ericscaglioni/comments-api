@@ -1,5 +1,5 @@
 const { InvalidParamError } = require('../../errors')
-const { badRequest, serverError, ok, created } = require('../../helpers/http/http-helper')
+const { badRequest, serverError, ok } = require('../../helpers/http/http-helper')
 const { IController } = require('../../protocols')
 
 class LoadCommentsByPostIdController extends IController {
@@ -19,7 +19,7 @@ class LoadCommentsByPostIdController extends IController {
             const comments = await this.iLoadCommentsByPostId.loadByPostId({
                 postId
             })
-            return created(comments)
+            return ok(comments)
         } catch (error) {
             return serverError(error)
         }

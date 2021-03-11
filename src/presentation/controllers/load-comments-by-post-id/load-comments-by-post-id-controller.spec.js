@@ -1,6 +1,6 @@
 const { InvalidParamError } = require('../../errors')
 const { ILoadCommentsByPostId } = require('../../../domain/usecases/load-comments-by-post-id')
-const { badRequest, serverError } = require('../../helpers/http/http-helper')
+const { badRequest, serverError, ok } = require('../../helpers/http/http-helper')
 const { LoadCommentsByPostIdController } = require('./load-comments-by-post-id-controller')
 
 const mockHttpRequest = () => ({
@@ -85,5 +85,17 @@ describe('Load Comments By Post Id Controller suite tests', () => {
         })
         const httpResponse = await sut.handle(mockHttpRequest())
         expect(httpResponse).toEqual(serverError(new Error()))
+    })
+
+    it('Should return 200 on success', async () => {
+      const { sut } = makeSut()
+      const httpResponse = await sut.handle(mockHttpRequest())
+      expect(httpResponse).toEqual(ok([{
+          id: 'any_comment_id',
+          content: 'any_content'
+      }, {
+          id: 'any_comment_id',
+          content: 'any_content'
+      }]))
     })
 })

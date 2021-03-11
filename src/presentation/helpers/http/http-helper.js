@@ -15,8 +15,14 @@ const created = (data) => ({
     body: data
 })
 
+const ok = (data) => ({
+    statusCode: 200,
+    body: data
+})
+
 module.exports = {
     badRequest,
     serverError,
-    created
+    created,
+    ok
 }
