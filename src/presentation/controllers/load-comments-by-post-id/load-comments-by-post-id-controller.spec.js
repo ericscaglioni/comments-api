@@ -1,6 +1,6 @@
 const { InvalidParamError } = require('../../errors')
 const { ILoadCommentsByPostId } = require('../../../domain/usecases/load-comments-by-post-id')
-const { badRequest } = require('../../helpers/http/http-helper')
+const { badRequest, serverError } = require('../../helpers/http/http-helper')
 const { LoadCommentsByPostIdController } = require('./load-comments-by-post-id-controller')
 
 const mockHttpRequest = () => ({
@@ -76,5 +76,14 @@ describe('Load Comments By Post Id Controller suite tests', () => {
         expect(loadByPostIdSpy).toHaveBeenCalledWith({
             postId: 1
         })
+    })
+
+    it('Should return 500 if ILoadCommentsByPostId throws', async () => {
+        const { sut, iLoadCommmentsByPostIdStub } = makeSut()
+        jest.spyOn(iLoadCommmentsByPostIdStub, 'loadByPostId').mockImplementationOnce(() => {
+            throw new Error()
+        })
+        const httpResponse = await sut.handle(mockHttpRequest())
+        expect(httpResponse).toEqual(serverError(new Error()))
     })
 })
