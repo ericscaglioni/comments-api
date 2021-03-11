@@ -29,13 +29,10 @@ describe('Comments Routes suite tests', () => {
                 .expect(400)
         })
 
-        // it('Should return 201 on success', async () => {
-        //     await request(app)
-        //         .post('/api/posts/1/comments')
-        //         .send({
-        //             content: 'any_comment'
-        //         })
-        //         .expect(201)
-        // })
+        it('Should return 200 on success', async () => {
+            await request(app)
+                .get('/api/posts/1/comments')
+                .expect(200)
+        })
     })
 })
