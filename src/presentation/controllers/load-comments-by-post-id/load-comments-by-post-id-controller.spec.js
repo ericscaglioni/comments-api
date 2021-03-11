@@ -51,4 +51,20 @@ describe('Load Comments By Post Id Controller suite tests', () => {
         const httpResponse = await sut.handle(httpRequest)
         expect(httpResponse).toEqual(badRequest(new InvalidParamError('id')))
     })
+
+    it('Should return 400 if params.id is a negative number', async () => {
+        const { sut } = makeSut()
+        const httpRequest = mockHttpRequest()
+        httpRequest.params.id = '-2'
+        const httpResponse = await sut.handle(httpRequest)
+        expect(httpResponse).toEqual(badRequest(new InvalidParamError('id')))
+    })
+
+    it('Should return 400 if params.id is equals 0', async () => {
+        const { sut } = makeSut()
+        const httpRequest = mockHttpRequest()
+        httpRequest.params.id = '0'
+        const httpResponse = await sut.handle(httpRequest)
+        expect(httpResponse).toEqual(badRequest(new InvalidParamError('id')))
+    })
 })
