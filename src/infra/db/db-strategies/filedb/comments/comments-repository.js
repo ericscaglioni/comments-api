@@ -25,7 +25,7 @@ class CommentsRepository extends IComment {
     }
 
     async add ({ postId, content }) {
-        const commentsByPostId = this._readFile()
+        const commentsByPostId = await this._readFile()
         const comment = new CommentModel({
             id: uuidv4(),
             content
