@@ -21,4 +21,21 @@ describe('Comments Routes suite tests', () => {
                 .expect(201)
         })
     })
+
+    describe('GET /posts/:id/comments', () => {
+        it('Should return 400 if the provided id is invalid', async () => {
+            await request(app)
+                .get('/api/posts/invalid_id/comments')
+                .expect(400)
+        })
+
+        // it('Should return 201 on success', async () => {
+        //     await request(app)
+        //         .post('/api/posts/1/comments')
+        //         .send({
+        //             content: 'any_comment'
+        //         })
+        //         .expect(201)
+        // })
+    })
 })
