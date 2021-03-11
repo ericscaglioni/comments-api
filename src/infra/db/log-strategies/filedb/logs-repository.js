@@ -24,10 +24,7 @@ class LogsRepository extends ILogRepository {
             error: errorStack,
             date: new Date()
         })
-        await FileHelper.writeFile({
-            path: this.filePath,
-            content: logs
-        })
+        await this._writeFile(logs)
     }
 }
 

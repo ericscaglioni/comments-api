@@ -13,6 +13,10 @@ class ContextStrategy extends IComment {
     async connect () {
         return this._database.connect()
     }
+
+    async loadByPostId ({ postId }) {
+        return this._database.loadByPostId({ postId })
+    }
 }
 
 module.exports = {
