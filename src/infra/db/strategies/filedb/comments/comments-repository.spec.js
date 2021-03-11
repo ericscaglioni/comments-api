@@ -1,6 +1,6 @@
 const { CommentsRepository } = require('./comments-repository')
 const { writeFile, readFile } = require('fs/promises')
-const { envConfig } = require('../../../../main/config/environment')
+const { envConfig } = require('../../../../../main/config/environment')
 
 const filePath = `${process.cwd()}/${envConfig.dbStrategyURL.file.comments}`
 

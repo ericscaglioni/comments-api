@@ -1,4 +1,4 @@
-const { CommentsRepository } = require('../../../../infra/db/filedb/comments/comments-repository')
+const { CommentsRepository } = require('../../../../infra/db/strategies/filedb/comments/comments-repository')
 const { ContextStrategy } = require('../../../../infra/db/strategies/context-strategy')
 const { envConfig } = require('../../../config/environment')
 

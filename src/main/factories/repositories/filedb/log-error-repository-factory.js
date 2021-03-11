@@ -1,4 +1,4 @@
-const { LogErrorRepository } = require('../../../../infra/db/filedb/log/log-error-repository')
+const { LogErrorRepository } = require('../../../../infra/db/strategies/filedb/log/log-error-repository')
 const { ContextStrategy } = require('../../../../infra/db/strategies/context-strategy')
 const { envConfig } = require('../../../config/environment')
 

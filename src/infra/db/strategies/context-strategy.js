@@ -1,9 +1,9 @@
 const { IComment } = require("../protocols/comment")
 
 class ContextStrategy extends IComment {
-    constructor(strategy) {
+    constructor(iCommentStrategy) {
         super()
-        this._database = strategy
+        this._database = iCommentStrategy
     }
 
     async add (postModel) {

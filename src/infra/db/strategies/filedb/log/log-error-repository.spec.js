@@ -1,6 +1,6 @@
 const { LogErrorRepository } = require('./log-error-repository')
 const { writeFile, readFile } = require('fs/promises')
-const { envConfig } = require('../../../../main/config/environment')
+const { envConfig } = require('../../../../../main/config/environment')
 const MockDate = require('mockdate')
 
 const filePath = `${process.cwd()}/${envConfig.dbStrategyURL.file.logs}`
