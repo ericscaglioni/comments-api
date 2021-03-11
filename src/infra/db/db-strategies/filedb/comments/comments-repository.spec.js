@@ -39,4 +39,15 @@ describe('Comments Repository suite tests', () => {
             await expect(promise).resolves.toBe()
         })
     })
+
+    describe('loadByPostId()', () => {
+        it('Should return an empty array if there is no comments', async () => {
+            const sut = makeSut()
+            const comments = await sut.loadByPostId({
+                postId: 1
+            })
+            expect(Array.isArray(comments)).toBeTruthy()
+            expect(comments).toHaveLength(0)
+        })
+    })
 })

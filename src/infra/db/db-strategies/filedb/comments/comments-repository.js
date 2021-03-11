@@ -36,6 +36,12 @@ class CommentsRepository extends IComment {
         await this._writeFile(commentsByPostId)
         return post
     }
+
+    async loadByPostId ({ postId }) {
+        const commentsByPostId = await this._readFile()
+        const postComments = commentsByPostId[postId] || []
+        return postComments
+    }
 }
 
 module.exports = {
