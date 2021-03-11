@@ -4,6 +4,36 @@ const { envConfig } = require('../../../../../main/config/environment')
 
 const filePath = `${process.cwd()}/${envConfig.dbStrategyURL.file.comments}`
 
+const insertPostComments = async () => {
+    const commentsByPostId = {
+        '1': [{
+            id: 'any_comment_id',
+            content: 'any_content'
+        }, {
+            id: 'any_comment_id_2',
+            content: 'any_content_2'
+        }],
+        '2': [{
+            id: 'any_comment_id',
+            content: 'any_content'
+        }, {
+            id: 'any_comment_id_2',
+            content: 'any_content_2'
+        }, {
+            id: 'any_comment_id_2',
+            content: 'any_content_2'
+        }, {
+            id: 'any_comment_id_2',
+            content: 'any_content_2'
+        }, {
+            id: 'any_comment_id_2',
+            content: 'any_content_2'
+        }]
+    }
+
+    await writeFile(filePath, JSON.stringify(commentsByPostId))
+}
+
 const makeSut = () => new CommentsRepository(filePath)
 
 let commentsByPostId = {}
@@ -48,6 +78,33 @@ describe('Comments Repository suite tests', () => {
             })
             expect(Array.isArray(comments)).toBeTruthy()
             expect(comments).toHaveLength(0)
+        })
+
+        it('Should return post comments on success', async () => {
+            await insertPostComments()
+            commentsByPostId = JSON.parse(await readFile(filePath))
+            expect(Object.keys(commentsByPostId).length).toBe(2)
+
+            const sut = makeSut()
+            const comments = await sut.loadByPostId({ postId: 2 })
+            expect(Array.isArray(comments)).toBeTruthy()
+            expect(comments).toHaveLength(5)
+            expect(comments).toEqual([{
+                id: 'any_comment_id',
+                content: 'any_content'
+            }, {
+                id: 'any_comment_id_2',
+                content: 'any_content_2'
+            }, {
+                id: 'any_comment_id_2',
+                content: 'any_content_2'
+            }, {
+                id: 'any_comment_id_2',
+                content: 'any_content_2'
+            }, {
+                id: 'any_comment_id_2',
+                content: 'any_content_2'
+            }])
         })
     })
 })
