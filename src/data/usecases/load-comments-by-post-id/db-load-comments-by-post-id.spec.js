@@ -49,5 +49,17 @@ describe('Db Load Comments suite tests', () => {
             })
             expect(loadByPostIdSpy).toHaveBeenCalledWith({ postId })
         })
+
+        it('Should throw if ILoadCommentsByPostIdStub throws', async () => {
+            const { sut, iLoadCommentsByPostIdRepositoryStub } = makeSut()
+            jest.spyOn(iLoadCommentsByPostIdRepositoryStub, 'loadByPostId').mockImplementationOnce(() => {
+                throw new Error('test')
+            })
+            const postId = 1
+            const promise = sut.loadByPostId({
+                postId
+            })
+            await expect(promise).rejects.toThrow()
+        })
     })
 })
