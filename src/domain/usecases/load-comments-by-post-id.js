@@ -1,11 +1,11 @@
 const { NotImplementedException } = require('../../utils/errors')
 
-class IAddComment {
-    async add ({ postId, content }) {
+class ILoadCommentsByPostId {
+    async loadByPostId ({ postId }) {
         return new NotImplementedException()
     }
 }
 
 module.exports = {
-    IAddComment
+    ILoadCommentsByPostId
 }
