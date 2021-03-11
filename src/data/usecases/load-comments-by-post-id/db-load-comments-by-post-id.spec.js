@@ -1,6 +1,10 @@
 const { IComment } = require('../../../infra/db/protocols/comment')
 const { DbLoadCommentsByPostId } = require('./db-load-comments-by-post-id')
 
+const mockPostId = () => ({
+    postId: 1
+})
+
 const mockILoadCommentsByPostIdRepository = () => {
     class ILoadCommentsByPostIdRepositoryStub extends IComment {
         async loadByPostId ({ postId }) {
@@ -43,11 +47,8 @@ describe('Db Load Comments suite tests', () => {
                 iLoadCommentsByPostIdRepositoryStub,
                 'loadByPostId'
             )
-            const postId = 1
-            await sut.loadByPostId({
-                postId
-            })
-            expect(loadByPostIdSpy).toHaveBeenCalledWith({ postId })
+            await sut.loadByPostId(mockPostId())
+            expect(loadByPostIdSpy).toHaveBeenCalledWith(mockPostId())
         })
 
         it('Should throw if ILoadCommentsByPostIdStub throws', async () => {
@@ -55,10 +56,7 @@ describe('Db Load Comments suite tests', () => {
             jest.spyOn(iLoadCommentsByPostIdRepositoryStub, 'loadByPostId').mockImplementationOnce(() => {
                 throw new Error('test')
             })
-            const postId = 1
-            const promise = sut.loadByPostId({
-                postId
-            })
+            const promise = sut.loadByPostId(mockPostId())
             await expect(promise).rejects.toThrow()
         })
     })
